@@ -106,12 +106,56 @@ public class FileTools {
         fileOutputStream.write(nTextByt);
         fileOutputStream.close();
         System.out.println("----------------------");
-        System.out.println(" File was hacked !");
+        System.out.println(" File was hacked with brut force!");
         System.out.println("----------------------");
     }
 
-    public void readFileAndProcessStatAnalyze() {
-        System.out.println(" Sorry the stat analysis is under development...see you soon ! :) ");
+    public void readFileAndProcessStatAnalyze() throws IOException {
+        System.out.println("Please enter the path for encrypted file : ");
+        String textFromEncFile = getTextFromFile();
+        System.out.println("Please enter the path for statistic file : ");
+        String textFromStatFile = getTextFromFile();
+        int key = cryptTools.analyseText(textFromEncFile, textFromStatFile);
+        System.out.println("Please enter the path for saving file after analysis : ");
+        File fileOutputText = new File(READER.readLine());
+        FileOutputStream fileOutputStream = new FileOutputStream(fileOutputText, true);
+        String newText = cryptTools.decryptString(textFromEncFile, key);
+        byte[] nTextByt = newText.getBytes();
+        fileOutputStream.write(nTextByt);
+        fileOutputStream.close();
+        System.out.println("----------------------");
+        System.out.println(" File was hacked with analysis !");
+        System.out.println("----------------------");
+    }
+
+    public String getTextFromFile() {
+        File fileRawText = null;
+        try {
+            fileRawText = new File(READER.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        FileInputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(fileRawText);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        int len = 0;
+        try {
+            len = inputStream.available();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        byte[] data = new byte[len];
+        try {
+            inputStream.read(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String text = new String(data);
+        System.out.println("Text was read !");
+        return text;
     }
 
     public String getFileContent(String filePath) {

@@ -76,4 +76,9 @@ class CryptToolsTest {
 
     }
 
+    @Test
+    void openFileForStatistic () {
+
+    }
+
 }

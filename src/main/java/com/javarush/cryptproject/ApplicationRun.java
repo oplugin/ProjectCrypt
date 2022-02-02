@@ -19,28 +19,24 @@ public class ApplicationRun {
         System.out.println("----------------------");
         System.out.println("Please choose action by entering the number");
         System.out.println("----------------------");
-        int userRequest = -1;
-        try {
-            userRequest = Integer.parseInt(READER.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         while (true) {
+            int userRequest = Integer.parseInt(READER.readLine());
             if (userRequest == 1) {
                 fileTools.readFileAndEncrypt();
-                break;
+
             } else if (userRequest == 2) {
                 fileTools.readFileAndDecrypt();
-                break;
+
             } else if (userRequest == 3) {
                 fileTools.readFileAndProcessBrutForce();
-                break;
+
             } else if (userRequest == 4) {
                 fileTools.readFileAndProcessStatAnalyze();
-                break;
+
             } else if (userRequest == 0) {
                 System.exit(0);
-                break;
+
             } else {
                 System.out.println("Please enter valid number !");
             }
